@@ -1,0 +1,4 @@
+var config = {}
+
+config.API_KEY = "123SECRET123";
+module.exports = config;
