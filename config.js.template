@@ -1,4 +1,9 @@
 var config = {}
 
 config.API_KEY = "123SECRET123";
+//in miles
+config.maxDistance = 15;
+//in milliseconds
+config.minTime = 1000 * 60 * 60 * 3;
+
 module.exports = config;

@@ -19,21 +19,61 @@
 // Oakland, CA, and Brisbane, Australia.
 
 function initialize() {
-  var mapOptions = {
-    zoom: 3,
-    center: new google.maps.LatLng(0, -180),
-    mapTypeId: google.maps.MapTypeId.TERRAIN
-  };
 
-  var map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
+  var map;
+  var monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+      ];
+
+  var formatDate = function(d) {
+    if(Object.prototype.toString.call(d) === "[object Date]" && !isNaN(d.getTime()) ) {
+      return monthNames[d.getMonth()] + " " + d.getDate();
+    }
+    return null;
+  }
+  var infowindow = new google.maps.InfoWindow();
 
   $.ajax("data.json", {
       "success": function (data) {
+  var mapOptions = {
+    zoom: 3,
+    center: new google.maps.LatLng(data[data.length-1].lat, data[data.length-1].lon)
+  };
+    map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
       var flightPlanCoordinates = [
       ];
       $.each(data, function(i,v) {
-        flightPlanCoordinates.push(new google.maps.LatLng(v.lat,v.lon));
+        var content = "<h1>"+v.loc+"</h1>"
+        var start = formatDate(new Date(v.start));
+        var end = formatDate(new Date(v.end));
+        if(start == end) {
+          if(v.daytrip) {
+          content += "<h3>Daytrip</h3>"
+          }
+          if( start !== null ) {
+          content += "<h3>"+start+"</h3>"
+          }
+        } else {
+          content += "<h3>"+start+"-"+end+"</h3>"
+        }
+        var ll = new google.maps.LatLng(v.lat,v.lon);
+        if(!v.daytrip) {
+          flightPlanCoordinates.push(ll);
+        }
+  var marker = new google.maps.Marker({
+      position: ll,
+      map: map,
+      title: v.loc
+  });
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.close();
+    infowindow.setContent(content);
+    infowindow.open(map,marker);
+  });
         });
 
       var flightPath = new google.maps.Polyline({
