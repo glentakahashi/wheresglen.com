@@ -73,8 +73,9 @@ function initialize() {
         }
         }
         var ll = new google.maps.LatLng(v.lat,v.lon);
-        if(!v.daytrip) {
-          flightPlanCoordinates.push(ll);
+        flightPlanCoordinates.push(ll);
+        if(v.daytrip) {
+          flightPlanCoordinates.push(flightPlanCoordinates[flightPlanCoordinates.length-2]);
         }
   var marker = new google.maps.Marker({
       position: ll,
