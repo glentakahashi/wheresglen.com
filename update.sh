@@ -1,12 +1,14 @@
 #!/bin/sh
 
-START=1427846400000
-NOW=1500000000000
+START=1427875200000
+END=1437411600000
 
 INFILE=data.kml
 OUTFILE=data.json
 
-if wget -O $INFILE -x --load-cookies cookie.txt "https://maps.google.com/locationhistory/b/0/kml?startTime=$START&endTime=$NOW"
+#TODO: copy/warn if config.js is not yet defined
+
+if wget -O $INFILE -x --load-cookies cookie.txt "https://maps.google.com/locationhistory/b/0/kml?startTime=$START&endTime=$END"
 then
   node parse.js $INFILE $OUTFILE
   cp index.html /var/www/wheresglen.com/

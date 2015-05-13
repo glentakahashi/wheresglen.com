@@ -5,5 +5,9 @@ config.API_KEY = "123SECRET123";
 config.maxDistance = 15;
 //in milliseconds
 config.minTime = 1000 * 60 * 60 * 3;
+//whether to use miles or meters
+config.metric = false;
+//how many detailed points to display in detailed view
+config.detailedPoints = 500;
 
 module.exports = config;

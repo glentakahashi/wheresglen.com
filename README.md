@@ -22,3 +22,9 @@ three parts
   only show the details/photos/statuses/last if they are friends with me
 
 add controls to browse through my history
+update "on day x" to be the most recent checkin vs first checkin.
+
+"multiple trips?"
+show distance travelled
+Change color of lines based on estimated trip type (i.e. car, bike, plane, walk)
+  use the end time of one point and the start time of another

@@ -3,14 +3,7 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>Where in the world is Glen Takahashi?</title>
-    <style>
-      html, body, #map-canvas {
-        height: 100%;
-        margin: 0px;
-        padding: 0px
-      }
-    </style>
+    <title>Where's Glen?</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
     <script>
@@ -21,95 +14,44 @@
 
       ga('create', 'UA-38356560-5', 'auto');
       ga('send', 'pageview');
-
-
-function initialize() {
-
-  var map;
-  var monthNames = [
-    "January", "February", "March",
-    "April", "May", "June", "July",
-    "August", "September", "October",
-    "November", "December"
-      ];
-
-  var formatDate = function(d) {
-    if(Object.prototype.toString.call(d) === "[object Date]" && !isNaN(d.getTime()) ) {
-      return monthNames[d.getMonth()] + " " + d.getDate();
-    }
-    return null;
-  }
-  var infowindow = new google.maps.InfoWindow();
-  //set the day of the trip
-  $('#day').removeClass('loading').text(Math.floor((new Date()-new Date("4/1/15"))/(24*60*60*1000)));
-
-  $.ajax("data.json", {
-      "success": function (data) {
-  var mapOptions = {
-    zoom: 3,
-    center: new google.maps.LatLng(data[data.length-1].lat, data[data.length-1].lon)
-  };
-  $("#location").removeClass('loading').text(data[data.length-1].loc);
-    map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
-      var flightPlanCoordinates = [
-      ];
-      $.each(data, function(i,v) {
-        var content = "<h1>"+v.loc+"</h1>"
-        var start = formatDate(new Date(v.start));
-        var end = formatDate(new Date(v.end));
-        if(start == end) {
-          if(v.daytrip) {
-          content += "<h3>Daytrip</h3>"
-          }
-          if( start !== null ) {
-          content += "<h3>"+start+"</h3>"
-          }
-        } else {
-        if(v.end == 0) {
-          content += "<h3>"+start+"-Present</h3>"
-          } else {
-          content += "<h3>"+start+"-"+end+"</h3>"
-        }
-        }
-        var ll = new google.maps.LatLng(v.lat,v.lon);
-        flightPlanCoordinates.push(ll);
-        if(v.daytrip) {
-          flightPlanCoordinates.push(flightPlanCoordinates[flightPlanCoordinates.length-2]);
-        }
-  var marker = new google.maps.Marker({
-      position: ll,
-      map: map,
-      title: v.loc
-  });
-  google.maps.event.addListener(marker, 'click', function() {
-    infowindow.close();
-    infowindow.setContent(content);
-    infowindow.open(map,marker);
-  });
-        });
-
-      var flightPath = new google.maps.Polyline({
-path: flightPlanCoordinates,
-geodesic: true,
-strokeColor: '#FF0000',
-strokeOpacity: 1.0,
-strokeWeight: 2
-});
-
-      flightPath.setMap(map);
-
-      }
-      });
-}
-
-google.maps.event.addDomListener(window, 'load', initialize);
-
     </script>
+    <script src="map.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <div><a href="https://glentaka.com">Glen</a> is currently in <span id="location" class="loading">Loading...</span> and is on day <span id="day" class="loading">Loading...</span> of his journey around the world.</div>
+  <div class="container">
+    <div class="title">Where in the World is <a href="https://glentaka.com">Glen Takahashi</a>?</div>
     <div id="map-canvas"></div>
+    <div class="info">
+      <div class="blurb">
+        Glen is currently travelling the world after graduating from UCLA!
+        He created this website to allow his friends and family to track his progress.
+        Read more about the website <a href="https://glentaka.com/portfolio/wheresglen.html">here</a> or see some fun facts below.
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Total Days</div><div id="totaldays" class="stat-value">110</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Days elapsed</div><div id="dayselapsed" class="loading stat-value"></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Days left</div><div id="daysleft" class="loading stat-value"></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Distance travelled</div><div id="distance" class="loading stat-value"></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label"># of countries</div><div id="numcountries" class="loading stat-value"></div>
+        </div>
+      </div>
+      <div class="itinerary">
+        <ol id="stops">
+        </ol>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
   </body>
 </html>

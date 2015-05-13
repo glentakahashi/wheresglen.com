@@ -1,3 +1,67 @@
-.loading {
+.loading:before {
+  content: "Loading...";
   opacity: .5;
+}
+body {
+  background-color: white;
+}
+.container {
+  margin: 0 auto;
+  width: 960px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding: 10px;
+  -webkit-box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.27);
+  -moz-box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.27);
+  box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.27);
+}
+.title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 800;
+  font-family: 'Raleway', sans-serif;
+  margin-bottom: 10px;
+}
+.info {
+  padding-left: 15px;
+  font-family: 'Raleway', sans-serif;
+  width: 305px;
+  float: left;
+}
+.stats {
+  line-height: 21px;
+}
+.stat {
+  clear: both;
+}
+.stat-label {
+  text-align: right;
+  font-weight: bold;
+  width: 150px;
+  float: left;
+}
+.stat-value {
+  margin-left: 160px;
+}
+.itinerary {
+  margin-top: 10px;
+  height: 260px;
+  overflow-y: scroll;
+  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.27);
+  -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.27);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.27);
+}
+.itinerary li {
+  cursor: pointer;
+}
+.itinerary li:hover {
+  background-color: #eee;
+}
+#map-canvas {
+  height: 480px;
+  width: 640px;
+  float: left;
+}
+.clear {
+  clear: both;
 }
