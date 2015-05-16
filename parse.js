@@ -98,7 +98,6 @@ if (currloc['start'] !== undefined) {
   var lat = 0;
   var lon = 0;
   var time = 0;
-  //TODO: fix that random NYC data point
   for(j=0;j<currloc.locs.length;j++) {
     l = currloc.locs[j];
     t = (ts[l[3]+1]-ts[l[3]]);

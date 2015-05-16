@@ -65,7 +65,7 @@ function initialize() {
     }
   }
     ele.text(v.loc);
-    $('#stops').append(ele);
+    $('#stops').prepend(ele);
   var ll = new google.maps.LatLng(v.lat,v.lon);
   flightPlanCoordinates.push(ll);
   if(v.daytrip) {
@@ -85,6 +85,7 @@ function initialize() {
     infowindow.close();
     infowindow.setContent(content);
     infowindow.open(map,marker);
+    //TODO: zoom in on city
   });
   if(i == data.locs.length-1) {
     infowindow.setContent(content);

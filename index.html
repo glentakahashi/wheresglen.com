@@ -25,7 +25,7 @@
     <div id="map-canvas"></div>
     <div class="info">
       <div class="blurb">
-        Glen is currently travelling the world after graduating from UCLA!
+        Glen is currently traveling the world after graduating from UCLA!
         He created this website to allow his friends and family to track his progress.
         Read more about the website <a href="https://glentaka.com/portfolio/wheresglen.html">here</a> or see some fun facts below.
       </div>
@@ -40,18 +40,31 @@
           <div class="stat-label">Days left</div><div id="daysleft" class="loading stat-value"></div>
         </div>
         <div class="stat">
-          <div class="stat-label">Distance travelled</div><div id="distance" class="loading stat-value"></div>
+          <div class="stat-label">Distance traveled</div><div id="distance" class="loading stat-value"></div>
         </div>
         <div class="stat">
           <div class="stat-label"># of countries</div><div id="numcountries" class="loading stat-value"></div>
         </div>
       </div>
       <div class="itinerary">
+        <div class="itinerary-header">Stops (In reverse)</div>
         <ol id="stops">
         </ol>
       </div>
     </div>
     <div class="clear"></div>
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'wheresglen';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+    </script>
   </div>
   </body>
 </html>

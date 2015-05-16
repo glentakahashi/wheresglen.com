@@ -4,6 +4,12 @@
 }
 body {
   background-color: white;
+  font-family: 'Raleway', sans-serif;
+  background: url(images/map.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 .container {
   margin: 0 auto;
@@ -14,17 +20,16 @@ body {
   -webkit-box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.27);
   -moz-box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.27);
   box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.27);
+  background-color: white;
 }
 .title {
   text-align: center;
   font-size: 30px;
   font-weight: 800;
-  font-family: 'Raleway', sans-serif;
   margin-bottom: 10px;
 }
 .info {
   padding-left: 15px;
-  font-family: 'Raleway', sans-serif;
   width: 305px;
   float: left;
 }
@@ -50,6 +55,14 @@ body {
   -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.27);
   -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.27);
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.27);
+}
+.itinerary-header {
+  padding: 8px;
+  padding-bottom: 0;
+  font-weight: bold;
+}
+.itinerary ol {
+  margin-top: 0;
 }
 .itinerary li {
   cursor: pointer;
