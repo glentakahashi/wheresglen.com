@@ -1,6 +1,8 @@
-function initialize() {
-
+$(document).ready(function (){
   var map;
+  var stops = {};
+  var infowindow = new google.maps.InfoWindow();
+
   var monthNames = [
     "January", "February", "March",
     "April", "May", "June", "July",
@@ -8,105 +10,122 @@ function initialize() {
     "November", "December"
       ];
 
-  var formatDate = function(d) {
-    if(Object.prototype.toString.call(d) === "[object Date]" && !isNaN(d.getTime()) ) {
-      return monthNames[d.getMonth()] + " " + d.getDate();
+  var formatDate = function(d, offset) {
+    //convert to Timezone date
+    d = new Date(d + offset * 3600 * 1000);
+    return [monthNames[d.getUTCMonth()], d.getUTCDate()];
+  };
+  var parseInfo = function(id) {
+    var stop = stops[id];
+    var content = "<h1>"+stop.loc+"</h1>";
+    var start = formatDate(stop.times[0][0], stop.tzOffset);
+    var end = formatDate(stop.times[0][1], stop.tzOffset);
+    for(i = 1;i<stop.times.length;i++) {
+      var start2 = formatDate(stop.times[i][0], stop.tzOffset);
+      var end2 = formatDate(stop.times[i][1], stop.tzOffset);
+      //if it is a continuation of the same days
+      if(start2[0] == end[0] && start2[1] == end[1]) {
+        end = end2;
+      //otherwise add the old segment
+      } else {
+        if(start[0] == end[0] && start[1] == end[1]) {
+          content += "<h3>"+start[0]+" "+start[1]+"</h3>";
+        } else {
+          content += "<h3>"+start[0]+" "+start[1]+"-";
+          if(start[0] != end[0]) {
+            content += end[0]+" ";
+          }
+          content += end[1]+"</h3>";
+        }
+        start = start2;
+        end = end2;
+      }
     }
-    return null;
-  }
-  var infowindow = new google.maps.InfoWindow();
-  //set the day of the trip
-  var start = new Date(1427875200000);
-  var days = 110;
-  var now = new Date();
-  var daysinMillis = 24 * 60 * 60 * 1000;
-  var daysElapsed = Math.floor((now - start) / daysinMillis);
-  var daysLeft = days - daysElapsed;
-  $('#dayselapsed').removeClass('loading').text(daysElapsed);
-  $('#daysleft').removeClass('loading').text(daysLeft);
+    //the last stop
+    if(stop.lastStop == true) {
+      content += "<h3>"+start[0]+" "+start[1]+"-Present</h3>";
+    } else if(start[0] == end[0] && start[1] == end[1]) {
+      content += "<h3>"+start[0]+" "+start[1]+"</h3>";
+    } else {
+      content += "<h3>"+start[0]+" "+start[1]+"-";
+      if(start[0] != end[0]) {
+        content += end[0]+" ";
+      }
+      content += end[1]+"</h3>";
+    }
+
+    stop.content = content;
+    return content;
+  };
 
   $.ajax("data.json", {
     "success": function (data) {
+      var days = 111;
+      var daysElapsed = Math.floor((data.segments[data.segments.length-1].endTime - data.segments[0].startTime) / (24 * 60 * 60 * 1000));
+      var daysLeft = days - daysElapsed;
+      $('#dayselapsed').removeClass('loading').text(daysElapsed);
+      $('#daysleft').removeClass('loading').text(daysLeft);
+      $("#distance").removeClass('loading').text(data.stats.totalDistance);
+      $("#numcountries").removeClass('loading').text(data.stats.countries.length);
+      //$("#countries").removeClass('loading').text(data.stats.countries.join(", "));
+      //$("#location").removeClass('loading').text(data.segments[data.segments.length-1].loc);
+
       var mapOptions = {
         zoom: 3,
-    center: new google.maps.LatLng(data.locs[data.locs.length-1].lat, data.locs[data.locs.length-1].lon)
+        center: new google.maps.LatLng(data.segments[data.segments.length-1].lat, data.segments[data.segments.length-1].lon)
       };
-      $("#location").removeClass('loading').text(data.locs[data.locs.length-1].loc);
-      map = new google.maps.Map(document.getElementById('map-canvas'),
-        mapOptions);
-      var flightPlanCoordinates = [
-    ];
-  $("#distance").removeClass('loading').text(data.stats.distance);
-  var countries = [];
-  new Set(data.stats.countries).forEach(function(value) {
-    countries.push(value);
-  });
-  $("#numcountries").removeClass('loading').text(countries.length);
-  $("#countries").removeClass('loading').text(countries.join(", "));
-  $.each(data.locs, function(i,v) {
-    var content = "<h1>"+v.loc+"</h1>"
-    //TODO: parse based on timezone
-    var start = formatDate(new Date(v.start));
-  var end = formatDate(new Date(v.end));
-  var ele = $('<li></li>');
-  if(start == end) {
-    if(v.daytrip) {
-      content += "<h3>Daytrip</h3>"
-    //$('#stops li:last-child').append('<ol class="daytrips"><li>'+v.loc+' | Daytrip</li></ol>');
-    }
-    if( start !== null ) {
-      content += "<h3>"+start+"</h3>"
-    }
-  } else {
-    if(v.end == 0) {
-      content += "<h3>"+start+"-Present</h3>"
-    } else {
-      content += "<h3>"+start+"-"+end+"</h3>"
-    }
-  }
-    ele.text(v.loc);
-    $('#stops').prepend(ele);
-  var ll = new google.maps.LatLng(v.lat,v.lon);
-  flightPlanCoordinates.push(ll);
-  if(v.daytrip) {
-    flightPlanCoordinates.push(flightPlanCoordinates[flightPlanCoordinates.length-2]);
-  }
-  var marker = new google.maps.Marker({
-    position: ll,
-      map: map,
-      title: v.loc
-  });
-  google.maps.event.addListener(marker, 'click', function() {
-    infowindow.close();
-    infowindow.setContent(content);
-    infowindow.open(map,marker);
-  });
-  ele.click(function() {
-    infowindow.close();
-    infowindow.setContent(content);
-    infowindow.open(map,marker);
-    //TODO: zoom in on city
-  });
-  if(i == data.locs.length-1) {
-    infowindow.setContent(content);
-    infowindow.open(map,marker);
-  }
-  });
+      map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+      var travelLine = [];
+      $.each(data.segments, function(i,v) {
+        var marker;
+        var openInfoWindow = function() {
+          infowindow.close();
+          if(stops[v.id].content !== undefined) {
+            infowindow.setContent(stops[v.id].content);
+          } else {
+            infowindow.setContent(parseInfo(v.id));
+          }
+          infowindow.open(map,marker);
+        }
+        if(stops[v.id] === undefined) {
+          marker = new google.maps.Marker({
+            position: new google.maps.LatLng(v.lat,v.lon),
+            map: map,
+            title: v.loc
+          });
+          stops[v.id] = {
+            loc: v.loc,
+            marker: marker,
+            times: [[v.startTime, v.endTime]],
+            tzOffset: v.tzOffset,
+          };
+          google.maps.event.addListener(marker, 'click', function() {
+            openInfoWindow();
+          });
+          var ele = $('<li>'+v.loc+'</li>');
+          $('#stops').prepend(ele);
+          ele.click(function() {
+            openInfoWindow();
+          });
+          if(i == data.segments.length-1) {
+            stops[v.id].lastStop = true;
+            openInfoWindow();
+          }
+        } else {
+          marker = stops[v.id].marker;
+          stops[v.id].times.push([v.startTime, v.endTime]);
+        }
+        travelLine.push(marker.position);
+      });
 
-  var flightPath = new google.maps.Polyline({
-    path: flightPlanCoordinates,
-      geodesic: true,
-      strokeColor: '#FF0000',
-      strokeOpacity: 1.0,
-      strokeWeight: 2
-  });
-
-  flightPath.setMap(map);
-
+      var line = new google.maps.Polyline({
+        path: travelLine,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+      });
+      line.setMap(map);
     }
   });
-}
-
-google.maps.event.addDomListener(window, 'load', initialize);
-
-
+});

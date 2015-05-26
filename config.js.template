@@ -1,13 +1,36 @@
 var config = {}
 
-config.API_KEY = "123SECRET123";
-//in miles
-config.maxDistance = 15;
-//in milliseconds
+//minimum total time at a location to register as a stop
 config.minTime = 1000 * 60 * 60 * 3;
-//whether to use miles or meters
+//display the state in the location e.g. San Jose, California, USA vs San Jose, USA
+config.showState = true;
+//whether to use miles or kilometers
 config.metric = false;
-//how many detailed points to display in detailed view
-config.detailedPoints = 500;
+//radius to search for features in above unit
+config.featureRadius = 15;
+//Allowed feature types via http://download.geonames.org/export/dump/featureCodes_en.txt
+config.featurePriority = [
+  'P.PPLC',  //capital of a political entity
+  'P.PPLA',  //seat of a first-order administrative division; seat of a first-order administrative division (PPLC takes precedence over PPLA)
+  'P.PPLA2', //seat of a second-order administrative division
+  'P.PPLA3', //seat of a third-order administrative division
+  'P.PPLA4', //seat of a fourth-order administrative division
+  'P.PPL',   //populated place; a city, town, village, or other agglomeration of buildings where people live and work
+  //'P.PPLCH', //historical capital of a political entity; a former capital of a political entity
+  //'P.PPLF',  //farm village; a populated place where the population is largely engaged in agricultural activities
+  //'P.PPLG',  //seat of government of a political entity
+  //'P.PPLH',  //historical populated place; a populated place that no longer exists
+  //'P.PPLL',  //populated locality; an area similar to a locality but with a small group of dwellings or other buildings
+  //'P.PPLQ',  //abandoned populated place
+  //'P.PPLR',  //religious populated place; a populated place whose population is largely engaged in religious occupations
+  //'P.PPLS',  //populated places; cities, towns, villages, or other agglomerations of buildings where people live and work
+  //'P.PPLW',  //destroyed populated place; a village, town or city destroyed by a natural disaster, or by war
+  //'P.PPLX',  //section of populated place
+];
+//Blacklist certain features from appearing on your map
+//Use codes from http://download.geonames.org/export/dump/
+config.featureBlacklist = [
+  //'292672', // Example (Sharjah UAE)
+];
 
 module.exports = config;

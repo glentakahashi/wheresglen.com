@@ -1,28 +1,26 @@
-TODO:
-add sqlite3 database that keeps track of points
-  create db if not exists
-finish parse.js script to download your location history, and add new points if necessary
+How to install
+===
 
-points:
-  add points if you are in the same "locality" of a single place for more than 3 hours
-  use the location, country, etc to name the point
-  use the start and end dates of the first and last point
-  another table with keeps track of the first date downloaded
+Get your cookies for google maps:
+  open a chrome incognito
+  navigate to URL FOR GOOGLE LOCATION HISTORY
+  log in
+  use "save cookie to .txt" and download your cookie as cookie.txt in this folder
+copy config.js.template to config.js and edit to your liking
+run "node parse.js"
 
-three parts
-1. Establish the major "trip" which just details overnight stays and identifies using a red line
-  do this by seeing where I was on average between the hours of 10pm and 8am (OF THE TIME ZONE OF THE LOCATION) or something
+requirements
+===
+node.js
+google account with location history
 
-2. Establish the activites/attractions visited from those places
-  make these like "pins" on the map
-3. Show the last 3 hours (or maybe 100 points) of detailed locations that I am in
-4. Show images/facebook statuses/etc from the thing
-5. Only do this if you are a facebook friend.
-  make them "Log in with facebook" and use a backend api to determine if they are friends with my id
-  only show the details/photos/statuses/last if they are friends with me
+TODO
+===
+add support for DST (really annoying to get right and I don't want to remake it by hand)
+  There are libraries that do it, but why include a whole huge library and just slow down the page loading?
 
 add controls to browse through my history
 
-"multiple trips?"
-Change color of lines based on estimated trip type (i.e. car, bike, plane, walk)
-  use the end time of one point and the start time of another
+Support for multiple different multiple trips?
+
+Change color of lines based on estimated trip type (i.e. car, bike, plane, walk, train)

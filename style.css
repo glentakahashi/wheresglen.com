@@ -5,7 +5,7 @@
 body {
   background-color: white;
   font-family: 'Raleway', sans-serif;
-  background: url(images/map.jpg) no-repeat center center fixed; 
+  background: url(images/map.jpg) no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -13,7 +13,7 @@ body {
 }
 .container {
   margin: 0 auto;
-  width: 960px;
+  width: 900px;
   margin-top: 15px;
   margin-bottom: 15px;
   padding: 10px;
@@ -34,6 +34,7 @@ body {
   float: left;
 }
 .stats {
+  padding-top: 10px;
   line-height: 21px;
 }
 .stat {
@@ -57,8 +58,7 @@ body {
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.27);
 }
 .itinerary-header {
-  padding: 8px;
-  padding-bottom: 0;
+  padding-top: 10px;
   font-weight: bold;
 }
 .itinerary ol {
@@ -71,10 +71,60 @@ body {
   background-color: #eee;
 }
 #map-canvas {
-  height: 480px;
-  width: 640px;
+  height: 520px;
+  width: 580px;
   float: left;
+}
+#map-canvas h1 {
+  margin: 0;
+}
+#map-canvas h3 {
+  margin: 0;
 }
 .clear {
   clear: both;
+}
+
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 479px) {
+  .container {
+    width: 280px;
+  }
+  #map-canvas {
+    width: 80%;
+    height: 320px;
+    margin: 0 10%;
+  }
+  .info {
+    width: 100%;
+    padding-top: 10px;
+    padding-left: 0;
+  }
+}
+
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  .container {
+    width: 80%;
+  }
+  #map-canvas {
+    width: 100%;
+    height: 320px;
+  }
+  .info {
+    width: 100%;
+    padding-top: 10px;
+    padding-left: 0;
+  }
+}
+
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+  .container {
+    width: 720px;
+  }
+  #map-canvas {
+    width: 400px;
+    height: 520px;
+  }
 }

@@ -5,7 +5,8 @@
   "main": "parse.js",
   "dependencies": {
     "jsdom": "<4.0.0",
-    "togeojson": "~0.11.1"
+    "togeojson": "~0.11.1",
+    "kdtree": "0.1.0"
   },
   "devDependencies": {},
   "scripts": {
