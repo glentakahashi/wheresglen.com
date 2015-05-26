@@ -9,6 +9,11 @@ Get your cookies for google maps:
 copy config.js.template to config.js and edit to your liking
 run "node parse.js"
 
+optional: crontab
+cd here
+./build.sh
+cp -r build/\* /var/www/whereever
+
 requirements
 ===
 node.js
@@ -16,6 +21,9 @@ google account with location history
 
 TODO
 ===
+better config.js handling (warning on missing params, etc.)
+  maybe don't use a template?
+
 add support for DST (really annoying to get right and I don't want to remake it by hand)
   There are libraries that do it, but why include a whole huge library and just slow down the page loading?
 
