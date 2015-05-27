@@ -19,7 +19,7 @@ then
   node parse.js $INFILE $BUILD_DIR/$OUTFILE
   for file in ${INSTALL_FILES[*]}
   do
-    cp -r -v $file $BUILD_DIR/$file
+    cp -r -v $file $BUILD_DIR/
   done
 else
   echo "Couldn't get location history"
