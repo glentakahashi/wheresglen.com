@@ -1,26 +1,30 @@
-.loading:before {
-  content: "Loading...";
-  opacity: .5;
-}
-body {
-  background-color: white;
-  font-family: 'Raleway', sans-serif;
-  background: url(images/map.jpg) no-repeat center center;
+html {
+  background: url(images/map.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 }
+body {
+  font-family: 'Raleway', sans-serif;
+}
 .container {
-  margin: 0 auto;
-  width: 900px;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin: 15px auto;
+  width: 920px;
+}
+.content {
   padding: 10px;
   -webkit-box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.27);
   -moz-box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.27);
   box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.27);
   background-color: white;
+}
+.footer {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  float: left;
+  color: #333333;
+  padding-left: 6px;
 }
 .title {
   text-align: center;
@@ -32,6 +36,10 @@ body {
   padding-left: 15px;
   width: 305px;
   float: left;
+}
+.loading:before {
+  content: "Loading...";
+  opacity: .5;
 }
 .stats {
   padding-top: 10px;
@@ -88,7 +96,7 @@ body {
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
 @media only screen and (max-width: 479px) {
   .container {
-    width: 280px;
+    width: 300px;
   }
   #map-canvas {
     width: 100%;
@@ -120,7 +128,7 @@ body {
 /* Tablet Portrait size to standard 960 (devices and browsers) */
 @media only screen and (min-width: 768px) and (max-width: 959px) {
   .container {
-    width: 720px;
+    width: 740px;
   }
   #map-canvas {
     width: 400px;

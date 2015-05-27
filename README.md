@@ -21,6 +21,10 @@ google account with location history
 
 TODO
 ===
+apis to look into:
+  moves, strava, foursquare
+  https://gyrosco.pe/features/
+
 better config.js handling (warning on missing params, etc.)
   maybe don't use a template?
 

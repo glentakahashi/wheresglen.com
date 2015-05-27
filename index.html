@@ -22,38 +22,43 @@
   </head>
   <body>
   <div class="container">
-    <div class="title">Where in the World is <a href="https://glentaka.com">Glen Takahashi</a>?</div>
-    <div id="map-canvas"></div>
-    <div class="info">
-      <div class="blurb">
-        Glen is currently traveling the world after graduating from UCLA!
-        He created this website to allow his friends and family to track his progress.
-        Read more about the website <a href="https://glentaka.com/portfolio/wheresglen.html">here</a> or see some fun facts below.
+    <div class="content">
+      <div class="title">Where in the World is <a href="https://glentaka.com">Glen Takahashi</a>?</div>
+      <div id="map-canvas"></div>
+      <div class="info">
+        <div class="blurb">
+          Glen is currently traveling the world after graduating from UCLA!
+          He created this website to allow his friends and family to track his progress.
+          Read more about the website <a href="https://glentaka.com/portfolio/wheresglen.html">here</a> or see some fun facts below.
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-label">Total Days</div><div id="totaldays" class="stat-value">111</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Days elapsed</div><div id="dayselapsed" class="loading stat-value"></div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Days left</div><div id="daysleft" class="loading stat-value"></div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Distance traveled</div><div id="distance" class="loading stat-value"></div>
+          </div>
+          <div class="stat">
+            <div class="stat-label"># of countries</div><div id="numcountries" class="loading stat-value"></div>
+          </div>
+        </div>
+        <div class="itinerary-header">Stops in reverse:</div>
+        <div class="itinerary">
+          <ol id="stops">
+          </ol>
+        </div>
       </div>
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-label">Total Days</div><div id="totaldays" class="stat-value">111</div>
-        </div>
-        <div class="stat">
-          <div class="stat-label">Days elapsed</div><div id="dayselapsed" class="loading stat-value"></div>
-        </div>
-        <div class="stat">
-          <div class="stat-label">Days left</div><div id="daysleft" class="loading stat-value"></div>
-        </div>
-        <div class="stat">
-          <div class="stat-label">Distance traveled</div><div id="distance" class="loading stat-value"></div>
-        </div>
-        <div class="stat">
-          <div class="stat-label"># of countries</div><div id="numcountries" class="loading stat-value"></div>
-        </div>
-      </div>
-      <div class="itinerary-header">Stops in reverse:</div>
-      <div class="itinerary">
-        <ol id="stops">
-        </ol>
-      </div>
+      <div class="clear"></div>
     </div>
-    <div class="clear"></div>
+    <div class="footer">
+      Copyright © 2015 <a href="https://glentaka.com">Glen Takahashi</a> • <a href="https://github.com/glentakahashi/wheresglen.com">Source Code</a>
+    </div>
   </div>
   </body>
 </html>
