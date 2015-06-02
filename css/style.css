@@ -59,7 +59,7 @@ body {
 }
 .itinerary {
   margin-top: 10px;
-  height: 260px;
+  height: 230px;
   overflow-y: scroll;
   -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.27);
   -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.27);
@@ -99,6 +99,32 @@ body {
 }
 .images .thumb {
   max-height: 100px;
+}
+.navigator-header {
+  padding-top: 10px;
+  font-weight: bold;
+}
+.navigator {
+  text-align: center;
+}
+.previous,.next {
+  cursor: pointer;
+  padding: 5px;
+  font-weight: bold;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select: none;
+}
+.previous:hover,.next:hover{
+  text-decoration: underline;
+}
+.navigation-disabled {
+  cursor: auto;
+  color: #777;
+}
+.navigation-disabled:hover {
+  text-decoration: none;
 }
 .clear {
   clear: both;

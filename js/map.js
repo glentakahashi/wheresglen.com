@@ -1,6 +1,7 @@
 $(document).ready(function (){
   var map;
   var stops = {};
+  var stopIds = [];
   var infowindow = new google.maps.InfoWindow();
 
   var monthNames = [
@@ -85,23 +86,44 @@ $(document).ready(function (){
       //$("#location").removeClass('loading').text(data.segments[data.segments.length-1].loc);
 
       var mapOptions = {
-        zoom: 3,
+        zoom: 4,
         center: new google.maps.LatLng(data.segments[data.segments.length-1].lat, data.segments[data.segments.length-1].lon)
       };
       map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
       var travelLine = [];
+      var currentIndex = 0;
       $.each(data.segments, function(i,v) {
         var marker;
-        var openInfoWindow = function() {
-          infowindow.close();
-          if(stops[v.id].content !== undefined) {
-            infowindow.setContent(stops[v.id].content);
-          } else {
-            infowindow.setContent(parseInfo(v.id));
-          }
-          infowindow.open(map,marker);
-        };
         if(stops[v.id] === undefined) {
+          stopIds.push(v.id);
+          var openInfoWindow = function() {
+            var index = stopIds.indexOf(v.id);
+            infowindow.close();
+            if(stops[v.id].content !== undefined) {
+              infowindow.setContent(stops[v.id].content);
+            } else {
+              infowindow.setContent(parseInfo(v.id));
+            }
+            map.setCenter(marker.getPosition());
+            infowindow.open(map,marker);
+            if(index == 0) {
+              $('.previous').addClass('navigation-disabled');
+              $('.previous').off('click.previous');
+            } else {
+              $('.previous').removeClass('navigation-disabled');
+              $('.previous').off('click.previous');
+              $('.previous').on('click.previous', stops[stopIds[index-1]].opener);
+            }
+            if (index == stopIds.length-1) {
+              $('.next').addClass('navigation-disabled');
+              $('.next').off('click.next');
+            } else {
+              $('.next').removeClass('navigation-disabled');
+              $('.next').off('click.next');
+              $('.next').on('click.next', stops[stopIds[index+1]].opener);
+            }
+            $('.position').text((stopIds.length - index) + "/" + (stopIds.length));
+          };
           marker = new google.maps.Marker({
             position: new google.maps.LatLng(v.lat,v.lon),
             map: map,
@@ -113,6 +135,7 @@ $(document).ready(function (){
             times: [[v.startTime, v.endTime]],
             tzOffset: v.tzOffset,
             images: v.images,
+            opener: openInfoWindow,
           };
           google.maps.event.addListener(marker, 'click', function() {
             openInfoWindow();
