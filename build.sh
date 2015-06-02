@@ -7,6 +7,12 @@ INFILE=data.kml
 OUTFILE=data.json
 BUILD_DIR=_build
 INSTALL_FILES=(index.html js/ css/ img/)
+INSTALL_DIR=$1
+
+if [ $# -eq 0 ]; then
+  echo "Please enter install dir."
+  exit 1
+fi
 
 if [ ! -f config.js ]; then
   echo "Warning! No config.js found, copying template to config.js"
@@ -21,6 +27,7 @@ then
   do
     cp -r -v $file $BUILD_DIR/
   done
+    cp -r -v $BUILD_DIR/* $INSTALL_DIR
 else
   echo "Couldn't get location history"
   exit 1
