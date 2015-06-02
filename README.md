@@ -1,6 +1,9 @@
 How to install
 ===
 
+**NOTE: This is not fork/clone-ready and won't work even if you follow instructions.
+I had to do some manual hacks to work with major limitations**
+
 Get your cookies for google maps:
   open a chrome incognito
   navigate to URL FOR GOOGLE LOCATION HISTORY
@@ -21,9 +24,18 @@ google account with location history
 
 TODO
 ===
+fixes: CSS on images is all fucked (shoudl vertical align or something, better gallery etc)
+immages are not cycled based on sotpId they all say undefined
+no titles are shown on images
+are the dates of google points parsed incorrectly???
+
+
 apis to look into:
-  moves, strava, foursquare
+  moves, strava, foursquare, chronos
   https://gyrosco.pe/features/
+  flickr, facebook photos
+
+always show most recent place as point
 
 better config.js handling (warning on missing params, etc.)
   maybe don't use a template?

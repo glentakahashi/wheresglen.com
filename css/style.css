@@ -1,5 +1,5 @@
 html {
-  background: url(images/map.jpg) no-repeat center center fixed;
+  background: url(/img/map.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -88,6 +88,17 @@ body {
 }
 #map-canvas h3 {
   margin: 0;
+}
+.images {
+  white-space: nowrap;
+  overflow-x: auto;
+}
+.images a {
+  display: inline-block;
+  padding: 5px;
+}
+.images .thumb {
+  max-height: 100px;
 }
 .clear {
   clear: both;

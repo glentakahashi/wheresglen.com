@@ -1,5 +1,13 @@
-var config = {}
+var config = {};
 
+//FB access_token temporary
+config.fbtoken = '';
+//FB app secret key
+config.fbsecret = '';
+//FB Photo album
+config.album = '';
+//facebook albums are uploaded in system time, so this is annoying :(
+config.timezoneOffset = 2;
 //minimum total time at a location to register as a stop
 config.minTime = 1000 * 60 * 60 * 3;
 //display the state in the location e.g. San Jose, California, USA vs San Jose, USA

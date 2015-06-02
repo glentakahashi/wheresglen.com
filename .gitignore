@@ -2,4 +2,4 @@ cookie.txt
 node_modules
 *.kml
 config.js
-build
+_build

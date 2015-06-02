@@ -5,8 +5,8 @@ END=1437411600000
 
 INFILE=data.kml
 OUTFILE=data.json
-BUILD_DIR=build
-INSTALL_FILES=(index.html map.js style.css images/)
+BUILD_DIR=_build
+INSTALL_FILES=(index.html js/ css/ img/)
 
 if [ ! -f config.js ]; then
   echo "Warning! No config.js found, copying template to config.js"

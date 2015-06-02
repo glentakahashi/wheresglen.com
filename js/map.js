@@ -42,7 +42,7 @@ $(document).ready(function (){
       }
     }
     //the last stop
-    if(stop.lastStop == true) {
+    if(stop.lastStop === true) {
       content += "<h3>"+start[0]+" "+start[1]+"-Present</h3>";
     } else if(start[0] == end[0] && start[1] == end[1]) {
       content += "<h3>"+start[0]+" "+start[1]+"</h3>";
@@ -52,6 +52,20 @@ $(document).ready(function (){
         content += end[0]+" ";
       }
       content += end[1]+"</h3>";
+    }
+
+    //add the images
+    if(stop.images && stop.images.length > 0) {
+      content += "<div class='images'>";
+      for(i = 0;i < stop.images.length; i++) {
+        var img = stop.images[i];
+        content += "<a href='" + img.src +"' data-lightbox='" + id + "'";
+        if(img.title && img.title.length > 0) {
+          content += " data-title='" + img.title + "'";
+        }
+        content += "><img class='thumb' src='" + img.thumb + "' alt=''></a>";
+      }
+      content += "</div>";
     }
 
     stop.content = content;
@@ -86,7 +100,7 @@ $(document).ready(function (){
             infowindow.setContent(parseInfo(v.id));
           }
           infowindow.open(map,marker);
-        }
+        };
         if(stops[v.id] === undefined) {
           marker = new google.maps.Marker({
             position: new google.maps.LatLng(v.lat,v.lon),
@@ -98,6 +112,7 @@ $(document).ready(function (){
             marker: marker,
             times: [[v.startTime, v.endTime]],
             tzOffset: v.tzOffset,
+            images: v.images,
           };
           google.maps.event.addListener(marker, 'click', function() {
             openInfoWindow();
@@ -114,6 +129,7 @@ $(document).ready(function (){
         } else {
           marker = stops[v.id].marker;
           stops[v.id].times.push([v.startTime, v.endTime]);
+          stops[v.id].images = stops[v.id].images.concat(v.images);
         }
         travelLine.push(marker.position);
       });
