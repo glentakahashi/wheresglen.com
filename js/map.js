@@ -104,7 +104,6 @@ $(document).ready(function (){
             } else {
               infowindow.setContent(parseInfo(v.id));
             }
-            map.setCenter(marker.getPosition());
             infowindow.open(map,marker);
             if(index == 0) {
               $('.previous').addClass('navigation-disabled');
