@@ -16,6 +16,16 @@ $(document).ready(function (){
     d = new Date(d + offset * 3600 * 1000);
     return [monthNames[d.getUTCMonth()], d.getUTCDate()];
   };
+
+  var escapeHTML = function escapeHtml(unsafe) {
+    return unsafe
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  };
+
   var parseInfo = function(id) {
     var stop = stops[id];
     var content = "<h1>"+stop.loc+"</h1>";
@@ -62,9 +72,13 @@ $(document).ready(function (){
         var img = stop.images[i];
         content += "<a href='" + img.src +"' data-lightbox='" + id + "'";
         if(img.title && img.title.length > 0) {
-          content += " data-title='" + img.title + "'";
+          content += " data-title='" + escapeHTML(img.title) + "'";
         }
-        content += "><img class='thumb' src='" + img.thumb + "' alt=''></a>";
+        content += "><img class='thumb' src='" + img.thumb + "' alt='";
+        if(img.title && img.title.length > 0) {
+          content += escapeHTML(img.title);
+        }
+        content += "'></a>";
       }
       content += "</div>";
     }
