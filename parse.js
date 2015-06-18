@@ -210,6 +210,10 @@ var done = function() {
   var dist = 0;
   for(i = 1;i<segments.length;i++) {
     dist += calculateDistance(segments[i].lat,segments[i].lon,segments[i-1].lat,segments[i-1].lon);
+    var country = countries[features[segments[i].id].countryCode].name;
+    if(countriesVisited.indexOf(country) == -1) {
+      countriesVisited.push(country);
+    }
   }
   var totalDistance;
   if(config.metric) {
@@ -229,10 +233,6 @@ var done = function() {
   function addSegment(segment) {
     segments.push(segment);
     features[segment.id].timeSpent += segment.endTime - segment.startTime;
-    var country = countries[features[segment.id].countryCode].name;
-    if(countriesVisited.indexOf(country) == -1) {
-      countriesVisited.push(country);
-    }
   }
 
   //http://stackoverflow.com/questions/27928/how-do-i-calculate-calculateDistance-between-two-latitude-longitude-points
