@@ -119,7 +119,7 @@ $(document).ready(function (){
               infowindow.setContent(parseInfo(v.id));
             }
             infowindow.open(map,marker);
-            if(index == 0) {
+            if(index === 0) {
               $('.previous').addClass('navigation-disabled');
               $('.previous').off('click.previous');
             } else {
@@ -158,14 +158,14 @@ $(document).ready(function (){
           ele.click(function() {
             openInfoWindow();
           });
-          if(i == data.segments.length-1) {
-            stops[v.id].lastStop = true;
-            openInfoWindow();
-          }
         } else {
           marker = stops[v.id].marker;
           stops[v.id].times.push([v.startTime, v.endTime]);
           stops[v.id].images = stops[v.id].images.concat(v.images);
+        }
+        if(i == data.segments.length-1) {
+          stops[v.id].lastStop = true;
+          stops[v.id].opener();
         }
         travelLine.push(marker.position);
       });
